@@ -22,12 +22,12 @@ FROM (
   WHERE
     {{@cohort_analysis_type == "era"}} ? {{
       -- cohort event era has 1+ day overlap with time window
-      cc.event_start_date <= DATEADD(day, tw.time_b, cc.cohort_start_date)
+      AND cc.event_start_date <= DATEADD(day, tw.time_b, cc.cohort_start_date)
       AND cc.event_end_date >= DATEADD(day, tw.time_a, cc.cohort_start_date)
     }}
     {{@cohort_analysis_type == "startDate"}} ? {{
       -- cohort event start date is within time window
-      cc.event_start_date <= DATEADD(day, tw.time_b, cc.cohort_start_date)
+      AND cc.event_start_date <= DATEADD(day, tw.time_b, cc.cohort_start_date)
       AND cc.event_start_date >= DATEADD(day, tw.time_a, cc.cohort_start_date)
     }}
     -- Ensure patient has fulfilled observation period and both left and right side of time interval are covered
