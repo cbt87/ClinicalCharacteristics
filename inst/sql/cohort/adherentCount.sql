@@ -20,6 +20,7 @@ FROM (
   JOIN @cdm_database_schema.observation_period OP
     on cc.subject_id = OP.person_id and cc.cohort_start_date >= OP.observation_period_start_date and cc.cohort_start_date <= op.observation_period_end_date
   WHERE
+  1 = 1
     {{@cohort_analysis_type == "era"}} ? {{
       -- cohort event era has 1+ day overlap with time window
       AND cc.event_start_date <= DATEADD(day, tw.time_b, cc.cohort_start_date)
